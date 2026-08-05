@@ -47,6 +47,13 @@ export default function App() {
       </button>
 
       <div className="card">
+        <img
+          src="/mibuslogo.webp"
+          alt="Logo de Mi Bus"
+          className="app-logo"
+          width="96"
+          height="96"
+        />
         <h2>Consulta de Salida</h2>
 
         <div className="form-group">
