@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Local dev tooling hooks (impeccable, harness detectors)
+.claude/
+.codex/
+.impeccable-session-*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

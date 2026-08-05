@@ -77,13 +77,13 @@ export default function App() {
 
         <div className="form-group">
           <label>Tipo de Jornada Aplicada:</label>
-          <div className="info-box" data-pending={!horaEntrada}>
+          <div className="info-box" data-pending={!horaEntrada} aria-live="polite">
             {jornadaText ?? 'Esperando hora de entrada...'}
           </div>
         </div>
 
         {resultado && (
-          <div id="resultado">Hora de salida: {resultado.horaSalida}</div>
+          <div id="resultado" aria-live="polite">Hora de salida: {resultado.horaSalida}</div>
         )}
       </div>
     </>

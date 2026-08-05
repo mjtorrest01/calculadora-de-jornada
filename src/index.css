@@ -4,7 +4,7 @@
   --text: #333;
   --label: #555;
   --input-bg: #fff;
-  --input-border: #ccc;
+  --input-border: #8f8f8f;
   --info-bg: #e3f2fd;
   --info-color: #0d47a1;
   --info-border: #bbdefb;
@@ -14,8 +14,8 @@
   --check-bg: #f8f9fa;
   --check-border: #ddd;
   --result-bg: #e9ecef;
-  --result-color: #28a745;
-  --result-border: #28a745;
+  --result-color: #1e7e34;
+  --result-border: #1e7e34;
   --btn-bg: #333;
   --btn-color: #fff;
   --btn-border: #444;
@@ -28,7 +28,7 @@
   --text: #e6e6e6;
   --label: #aaa;
   --input-bg: #2a2a2a;
-  --input-border: #444;
+  --input-border: #7a7a7a;
   --info-bg: #16324f;
   --info-color: #8fbeeb;
   --info-border: #2c4a66;
@@ -55,15 +55,16 @@ body {
   align-items: center;
   min-height: 100vh;
   margin: 0;
-  padding: 16px;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+    max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
   box-sizing: border-box;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .theme-toggle {
   position: fixed;
-  top: 16px;
-  right: 16px;
+  top: max(16px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -76,7 +77,16 @@ body {
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.theme-toggle:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--info-color);
+  outline-offset: 2px;
 }
 
 .card {
@@ -140,6 +150,11 @@ input[type='checkbox'] {
   cursor: pointer;
 }
 
+input[type='checkbox']:focus-visible {
+  outline: 2px solid var(--info-color);
+  outline-offset: 2px;
+}
+
 .hora-input {
   width: 100%;
   padding: 10px;
@@ -149,16 +164,75 @@ input[type='checkbox'] {
   font-size: 16px;
   background-color: var(--input-bg);
   color: var(--text);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hora-input:focus {
+  border-color: var(--info-color);
+}
+
+.hora-input:focus-visible {
+  outline: 2px solid var(--info-color);
+  outline-offset: 1px;
 }
 
 #resultado {
   margin-top: 20px;
-  padding: 15px;
+  padding: 18px;
   background-color: var(--result-bg);
   border-radius: 5px;
   text-align: center;
-  font-size: 18px;
+  font-size: 1.55rem;
   font-weight: bold;
   color: var(--result-color);
   border: 2px dashed var(--result-border);
+  animation: result-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes result-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (pointer: coarse) {
+  .checkbox-group {
+    padding: 14px;
+  }
+
+  input[type='checkbox'] {
+    width: 24px;
+    height: 24px;
+    flex: none;
+  }
+
+  .hora-input {
+    padding: 14px 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  body {
+    padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right))
+      max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  }
+
+  .card {
+    padding: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
